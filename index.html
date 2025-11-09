@@ -6,8 +6,8 @@
   <title>Invitación de Casamiento — Iván & Brenda</title>
   <meta name="description" content="Tarjeta de casamiento online de Iván y Brenda. 19 de Enero de 2026. Confirmar asistencia, ubicación, donaciones y álbum de fotos." />
 
-  <!-- Tipografías elegantes y profesionales -->
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root{
@@ -17,444 +17,358 @@
       --gold: #C8A961;
       --rose: #D9A3A7;
       --ink: #2A2A2A;
-      --shadow: rgba(0,0,0,0.35);
-      --soft-shadow: rgba(0,0,0,0.12);
+      --soft-shadow: rgba(0,0,0,0.16);
       --celeste: #2BB5FF;
+      --celeste-text: #073b55;
+      --white: #ffffff;
     }
 
-    * { box-sizing: border-box }
-    html, body { height: 100% }
+    *{box-sizing:border-box}
+    html, body{height:100%}
     body{
-      margin:0;
-      background: var(--ivory);
-      color: var(--ink);
+      margin:0; background:var(--ivory); color:var(--ink);
       font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      overflow-x: hidden;
+      overflow-x:hidden;
     }
 
-    /* Fondo de boda difuminado con sombras */
+    /* Fondo difuminado */
     .bg{
-      position: fixed;
-      inset: 0;
+      position:fixed; inset:0;
       background:
-        radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%),
-        url('https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1920&auto=format&fit=crop') center/cover no-repeat;
-      filter: blur(3px) brightness(0.9);
-      z-index: -2;
+        radial-gradient(ellipse at center, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.58) 100%),
+        url('https://images.unsplash.com/photo-1520974735198-385b1325843d?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+      filter:blur(3px) brightness(0.9);
+      z-index:-2;
     }
     .bg-overlay{
-      position: fixed;
-      inset: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
-      z-index: -1;
+      position:fixed; inset:0;
+      background:linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
+      z-index:-1;
     }
 
-    /* Contenedor principal */
+    /* Responsive container */
     .wrap{
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 28px 20px 80px;
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      padding:24px 16px 120px;
     }
 
-    /* Header con animaciones elegantes */
+    /* Header */
     header{
-      text-align: center;
-      padding: 80px 16px 36px;
-      color: #fff;
+      text-align:center; color:#fff;
+      padding:72px 16px 40px;
     }
     .title{
-      font-family: Cinzel, serif;
-      font-weight: 700;
-      font-size: clamp(34px, 6vw, 72px);
-      letter-spacing: 1px;
-      line-height: 1.1;
-      text-shadow: 0 6px 22px rgba(0,0,0,0.5);
-      animation: glow 4.5s ease-in-out infinite;
+      font-family:Cinzel, serif;
+      font-weight:700;
+      font-size:clamp(34px, 6vw, 72px);
+      letter-spacing:1px; line-height:1.1;
+      text-shadow:0 8px 28px rgba(0,0,0,0.55);
+      animation:glow 4.5s ease-in-out infinite;
     }
     .subtitle{
-      font-family: Cinzel, serif;
-      font-weight: 600;
-      font-size: clamp(18px, 3.2vw, 28px);
-      color: #fff;
-      opacity: 0.95;
-      margin-top: 10px;
-      animation: float 6s ease-in-out infinite;
+      font-family:Cinzel, serif;
+      font-weight:600;
+      font-size:clamp(18px, 3.2vw, 28px);
+      opacity:0.95; margin-top:12px;
+      animation:float 6s ease-in-out infinite;
     }
     .date-badge{
-      display: inline-flex;
-      gap: 12px;
-      align-items: center;
-      padding: 10px 16px;
-      margin-top: 18px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, rgba(200,169,97,0.22), rgba(233,214,175,0.22));
-      backdrop-filter: blur(6px);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.28);
-      box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+      display:inline-flex; gap:12px; align-items:center;
+      padding:10px 16px; margin-top:18px; border-radius:999px;
+      background:linear-gradient(90deg, rgba(200,169,97,0.22), rgba(233,214,175,0.22));
+      backdrop-filter:blur(6px); color:#fff;
+      border:1px solid rgba(255,255,255,0.28);
+      box-shadow:0 8px 32px rgba(0,0,0,0.45);
     }
     .date-badge .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: var(--gold);
-      animation: pulse 1.6s infinite;
+      width:10px; height:10px; border-radius:50%; background:var(--gold);
+      animation:pulse 1.6s infinite;
     }
 
     @keyframes glow{
-      0%,100%{ text-shadow: 0 6px 22px rgba(0,0,0,0.5), 0 0 0 rgba(200,169,97,0) }
-      50%{ text-shadow: 0 6px 22px rgba(0,0,0,0.5), 0 0 24px rgba(200,169,97,0.75) }
+      0%,100%{ text-shadow:0 8px 28px rgba(0,0,0,0.55), 0 0 0 rgba(200,169,97,0) }
+      50%{ text-shadow:0 8px 28px rgba(0,0,0,0.55), 0 0 26px rgba(200,169,97,0.85) }
     }
-    @keyframes float{
-      0%,100%{ transform: translateY(0) }
-      50%{ transform: translateY(-6px) }
-    }
-    @keyframes pulse{
-      0%,100%{ transform: scale(1); opacity:1 }
-      50%{ transform: scale(1.25); opacity:0.75 }
-    }
+    @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-6px)} }
+    @keyframes pulse{ 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.25);opacity:0.75} }
     @keyframes shimmer{
-      0%{ background-position: -200% 0 }
-      100%{ background-position: 200% 0 }
+      0%{ background-position:-200% 0 } 100%{ background-position:200% 0 }
     }
     .shimmer-text{
-      background-image: linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.7), rgba(255,255,255,0.1));
-      background-size: 200% 100%;
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      animation: shimmer 4s linear infinite;
+      background-image:linear-gradient(90deg, rgba(255,255,255,0.1), rgba(255,255,255,0.8), rgba(255,255,255,0.1));
+      background-size:200% 100%;
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation:shimmer 4s linear infinite;
     }
 
-    /* Barra lateral música */
-    .music-panel{
-      position: fixed;
-      top: 24px;
-      right: 24px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      z-index: 20;
-    }
-    .music-card{
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.4);
-      backdrop-filter: blur(8px);
-      color: #fff;
-      padding: 12px 14px;
-      border-radius: 12px;
-      box-shadow: 0 8px 28px rgba(0,0,0,0.35);
-      min-width: 220px;
-    }
-    .music-actions{
-      display: flex; gap: 8px; margin-top: 8px;
-    }
-    .btn{
-      appearance: none;
-      border: none;
-      border-radius: 10px;
-      padding: 10px 14px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: transform .12s ease, box-shadow .12s ease, background .2s ease, color .2s ease;
-    }
-    .btn:active{ transform: translateY(1px) }
-    .btn-gold{ background: var(--gold); color: #fff; box-shadow: 0 4px 12px rgba(200,169,97,0.45) }
-    .btn-gold:hover{ filter: brightness(1.08) }
-    .btn-ghost{ background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.6) }
-    .btn-ghost:hover{ background: rgba(255,255,255,0.12) }
-
-    /* Sección invitación */
+    /* Tarjetas */
     .card{
-      background: rgba(255,255,255,0.78);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 16px;
-      padding: 24px;
-      margin: 26px auto;
-      box-shadow: 0 12px 40px var(--soft-shadow);
+      background:rgba(255,255,255,0.92);
+      backdrop-filter:blur(10px);
+      border-radius:18px;
+      padding:22px;
+      margin:26px auto;
+      border:1px solid rgba(0,0,0,0.06);
+      /* Sombra mejorada */
+      box-shadow:
+        0 30px 60px rgba(0,0,0,0.28),
+        0 12px 24px rgba(0,0,0,0.18);
     }
     .card h2{
-      font-family: Cinzel, serif;
-      font-size: clamp(22px, 3vw, 32px);
-      margin: 0 0 12px;
+      font-family:Cinzel, serif;
+      font-size:clamp(22px, 3vw, 32px);
+      margin:0 0 12px;
     }
     .lead{
-      font-size: clamp(16px, 2.2vw, 18px);
-      color: #333;
-    }
-    .lead .celeste{
-      color: var(--celeste);
-      animation: blink 1.4s infinite;
-      font-weight: 700;
-    }
-    @keyframes blink{
-      0%,49%{ opacity:1 }
-      50%,100%{ opacity:0.2 }
+      font-size:clamp(16px, 2.2vw, 18px);
+      color:#333;
     }
 
-    /* Detalles */
-    .details{
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0,1fr));
-      gap: 16px;
-      margin-top: 14px;
+    /* Animaciones mejoradas para “Confirmá tu asistencia / Recordatorio” */
+    .lead .cta{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:4px 10px; border-radius:999px;
+      background:linear-gradient(90deg, #eaf7ff, #ffffff);
+      border:1px solid rgba(43,181,255,0.4);
+      color:#0b5e84; font-weight:800;
+      box-shadow:0 6px 16px rgba(43,181,255,0.25);
+      position:relative;
+      overflow:hidden;
     }
-    @media (max-width: 860px){
-      .details{ grid-template-columns: 1fr }
-    }
-    .detail{
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.06);
-      border-radius: 12px;
-      padding: 16px;
-      box-shadow: 0 8px 24px var(--soft-shadow);
-      position: relative;
-      overflow: hidden;
-    }
-    .detail::after{
+    .lead .cta::after{
       content:"";
       position:absolute; inset:0;
-      background: linear-gradient(120deg, rgba(200,169,97,0.06), transparent 40%, rgba(200,169,97,0.08));
-      animation: subtle 6s ease-in-out infinite;
-      pointer-events:none;
+      background:linear-gradient(120deg, transparent 0%, rgba(43,181,255,0.15) 50%, transparent 100%);
+      animation:cta-shine 2.4s linear infinite;
     }
-    @keyframes subtle{
-      0%,100%{ opacity:0.4 } 50%{ opacity:0.7 }
+    @keyframes cta-shine{
+      0%{ transform:translateX(-100%) }
+      100%{ transform:translateX(100%) }
+    }
+
+    .badge-celeste{
+      display:inline-block; margin-left:8px;
+      background:var(--celeste); color:var(--celeste-text);
+      font-weight:900; padding:6px 10px; border-radius:999px;
+      box-shadow:0 8px 20px rgba(43,181,255,0.35);
+      /* efecto pulso + balanceo suave */
+      animation:badge-pulse 1.6s ease-in-out infinite, badge-sway 5s ease-in-out infinite;
+    }
+    @keyframes badge-pulse{
+      0%,100%{ transform:scale(1); opacity:1 }
+      50%{ transform:scale(1.08); opacity:0.85 }
+    }
+    @keyframes badge-sway{
+      0%,100%{ transform:translateY(0) rotate(0deg) }
+      50%{ transform:translateY(-2px) rotate(1.2deg) }
+    }
+
+    /* Grid de detalles responsive */
+    .details{
+      display:grid; gap:16px; margin-top:14px;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+    }
+    @media (max-width:980px){ .details{ grid-template-columns:repeat(2, minmax(0,1fr)) } }
+    @media (max-width:640px){ .details{ grid-template-columns:1fr } }
+
+    .detail{
+      background:#fff; border:1px solid rgba(0,0,0,0.06);
+      border-radius:14px; padding:16px;
+      box-shadow:
+        0 26px 46px rgba(0,0,0,0.22),
+        0 10px 22px rgba(0,0,0,0.16);
+      position:relative; overflow:hidden;
     }
     .detail h3{
-      font-family: Cinzel, serif;
-      font-size: 18px;
-      margin:0 0 8px;
-      color: var(--ink);
+      font-family:Cinzel, serif;
+      font-size:18px; margin:0 0 8px; color:var(--ink);
     }
-    .detail p{ margin: 6px 0; color: #444 }
+    .detail p{ margin:6px 0; color:#444 }
 
-    /* Álbum de fotos carrusel */
+    .actions{
+      display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;
+    }
+
+    /* Botones */
+    .btn{
+      appearance:none; border:none; border-radius:10px;
+      padding:10px 14px; font-weight:700; cursor:pointer;
+      transition:transform .12s ease, box-shadow .12s ease, filter .2s ease;
+    }
+    .btn:active{ transform:translateY(1px) }
+    .btn-gold{ background:var(--gold); color:#fff; box-shadow:0 6px 18px rgba(200,169,97,0.45) }
+    .btn-gold:hover{ filter:brightness(1.08) }
+    .btn-ghost{ background:transparent; color:#333; border:1px solid rgba(0,0,0,0.15) }
+    .btn-ghost:hover{ filter:brightness(1.06) }
+
+    /* WhatsApp */
+    .wa{
+      display:inline-flex; align-items:center; gap:8px;
+      text-decoration:none; color:#fff; background:#25D366;
+      padding:10px 14px; border-radius:10px; font-weight:800;
+      box-shadow:0 6px 18px rgba(37,211,102,0.4);
+    }
+    .wa:hover{ filter:brightness(1.06) }
+
+    /* Álbum de fotos auto deslizante */
     .album{
-      position: relative;
-      margin-top: 24px;
-      border-radius: 14px;
-      overflow: hidden;
-      border: 1px solid rgba(0,0,0,0.06);
-      box-shadow: 0 12px 40px var(--soft-shadow);
-      background: #fff;
+      position:relative; margin-top:24px;
+      border-radius:14px; overflow:hidden;
+      border:1px solid rgba(0,0,0,0.06);
+      box-shadow:0 22px 52px rgba(0,0,0,0.28), 0 10px 24px rgba(0,0,0,0.16);
+      background:#fff;
     }
     .album-header{
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 14px 16px;
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 16px; border-bottom:1px solid rgba(0,0,0,0.06);
     }
-    .album-header h3{
-      font-family: Cinzel, serif;
-      margin:0; font-size: 18px;
-    }
+    .album-header h3{ font-family:Cinzel, serif; margin:0; font-size:18px }
     .strip{
-      position: relative;
-      height: 240px;
-      overflow: hidden;
-      background: #faf8f3;
+      position:relative; height:240px; overflow:hidden; background:#faf8f3;
     }
     .lane{
-      display: flex;
-      gap: 12px;
-      position: absolute;
-      top: 0; left: 0;
-      padding: 12px;
-      will-change: transform;
-      animation: slide-left 18s linear infinite;
+      display:flex; gap:12px; position:absolute; top:0; left:0; padding:12px;
+      will-change:transform; animation:slide-left 22s linear infinite;
     }
-    @keyframes slide-left{
-      0%{ transform: translateX(0) }
-      100%{ transform: translateX(-50%) }
-    }
+    @keyframes slide-left{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
     .photo{
-      flex: 0 0 320px;
-      height: 216px;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 8px 24px var(--soft-shadow);
-      position: relative;
-      background: #ddd;
+      flex:0 0 300px; height:210px; border-radius:12px; overflow:hidden;
+      box-shadow:0 12px 28px rgba(0,0,0,0.22);
+      background:#ddd; position:relative;
     }
     .photo img{
-      width: 100%; height: 100%; object-fit: cover;
-      filter: saturate(1.05) contrast(1.02);
-      transform: scale(1.02);
+      width:100%; height:100%; object-fit:cover;
+      filter:saturate(1.05) contrast(1.02); transform:scale(1.02);
     }
     .photo::after{
-      content:"";
-      position:absolute; inset:0;
-      background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.18));
+      content:""; position:absolute; inset:0;
+      background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.18));
     }
-
-    /* Botones principales */
-    .actions{
-      display: flex; flex-wrap: wrap; gap: 12px;
-      margin-top: 18px;
-    }
-
-    /* Modal genérico */
-    .modal-backdrop{
-      position: fixed; inset: 0; background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(4px); display: none; z-index: 50;
-    }
-    .modal{
-      position: fixed; inset: 0; display: grid; place-items: center; z-index: 60; pointer-events: none;
-    }
-    .modal-panel{
-      width: min(720px, 92vw);
-      background: #fff;
-      border-radius: 16px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.35);
-      border: 1px solid rgba(0,0,0,0.08);
-      overflow: hidden; pointer-events: auto;
-      transform: translateY(16px);
-      opacity: 0; scale: 0.98;
-      transition: opacity .18s ease, transform .18s ease, scale .18s ease;
-    }
-    .modal.show .modal-panel{
-      transform: translateY(0); opacity: 1; scale: 1;
-    }
-    .modal-head{
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 14px;
-      background: linear-gradient(90deg, var(--champagne), #fff);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
-    }
-    .modal-title{
-      font-family: Cinzel, serif; font-size: 18px; margin:0;
-    }
-    .close{
-      width: 34px; height: 34px; border-radius: 50%;
-      border: 1px solid rgba(0,0,0,0.14);
-      background: #fff; cursor: pointer;
-      display: grid; place-items: center; font-weight: 700;
-    }
-    .modal-body{ padding: 14px }
-    .centered{ display: grid; place-items: center }
-
-    /* Map modal specific */
-    .map-frame{
-      width: 100%; height: 420px; border: 0;
-      border-radius: 8px; box-shadow: 0 8px 24px var(--soft-shadow);
-    }
-
-    /* Donación modal specific */
-    .alias{
-      font-family: Cinzel, serif;
-      font-size: 22px;
-      color: var(--gold);
-      margin: 8px 0;
-    }
-    .note{
-      background: #fffaf0;
-      border: 1px dashed var(--gold);
-      border-radius: 10px;
-      padding: 10px 12px;
-      color: #6a5b2e;
-    }
-
-    /* WhatsApp link */
-    .wa{
-      display: inline-flex; align-items: center; gap: 8px;
-      text-decoration: none; color: #fff;
-      background: #25D366; padding: 10px 14px; border-radius: 10px;
-      font-weight: 700; box-shadow: 0 6px 18px rgba(37,211,102,0.4);
-    }
-    .wa:hover{ filter: brightness(1.06) }
 
     /* Footer */
-    footer{
-      text-align:center; color: #fff; padding: 40px 16px 80px;
-    }
+    footer{ text-align:center; color:#fff; padding:40px 16px 120px }
     .ring{
-      display: inline-block;
-      width: 18px; height: 18px;
-      border: 3px solid var(--gold);
-      border-radius: 50%;
-      margin: 0 6px;
-      animation: spin 6s linear infinite;
+      display:inline-block; width:18px; height:18px; border:3px solid var(--gold);
+      border-radius:50%; margin:0 6px; animation:spin 6s linear infinite;
     }
-    @keyframes spin{
-      0%{ transform: rotate(0) } 100%{ transform: rotate(360deg) }
-    }
+    @keyframes spin{ 0%{transform:rotate(0)} 100%{transform:rotate(360deg)} }
 
-    /* Pequeños iconos flotantes permanentes */
-    .float-icons{
-      position: fixed; bottom: 26px; left: 26px; pointer-events: none; z-index: 10;
-    }
+    /* Íconos flotantes */
+    .float-icons{ position:fixed; bottom:26px; left:26px; pointer-events:none; z-index:10 }
     .float-icons .dot{
-      width: 9px; height: 9px; border-radius: 50%;
-      background: var(--gold); margin: 6px;
-      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.25));
-      animation: bob 3.6s ease-in-out infinite;
+      width:9px; height:9px; border-radius:50%;
+      background:var(--gold); margin:6px;
+      filter:drop-shadow(0 2px 6px rgba(0,0,0,0.25));
+      animation:bob 3.6s ease-in-out infinite;
     }
-    .float-icons .dot:nth-child(2){ animation-delay: .6s; background: var(--rose) }
-    .float-icons .dot:nth-child(3){ animation-delay: 1.2s; background: var(--champagne) }
-    @keyframes bob{
-      0%,100%{ transform: translateY(0) }
-      50%{ transform: translateY(-8px) }
+    .float-icons .dot:nth-child(2){ animation-delay:.6s; background:var(--rose) }
+    .float-icons .dot:nth-child(3){ animation-delay:1.2s; background:var(--champagne) }
+    @keyframes bob{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    /* Panel música abajo (responsive) */
+    .music-panel{
+      position:fixed; bottom:20px; right:20px; left:auto; z-index:30;
+      display:flex; flex-direction:column; gap:8px;
+    }
+    @media (max-width:600px){
+      .music-panel{ left:16px; right:16px }
+    }
+    .music-card{
+      background:rgba(255,255,255,0.95);
+      border:1px solid rgba(0,0,0,0.06);
+      backdrop-filter:blur(8px);
+      color:#222; padding:12px 14px; border-radius:12px;
+      box-shadow:0 20px 44px rgba(0,0,0,0.35);
+      min-width:220px;
+    }
+    .music-actions{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
+
+    /* Modales */
+    .modal-backdrop{
+      position:fixed; inset:0; background:rgba(0,0,0,0.55);
+      backdrop-filter:blur(4px); display:none; z-index:50;
+    }
+    .modal{
+      position:fixed; inset:0; display:none; place-items:center; z-index:60;
+    }
+    .modal-panel{
+      width:min(720px, 92vw); background:#fff; border-radius:16px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.35); border:1px solid rgba(0,0,0,0.08);
+      overflow:hidden; transform:translateY(16px); opacity:0; scale:0.98;
+      transition:opacity .18s ease, transform .18s ease, scale .18s ease;
+    }
+    .modal.show .modal-panel{ transform:translateY(0); opacity:1; scale:1 }
+    .modal-head{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:12px 14px; background:linear-gradient(90deg, var(--champagne), #fff);
+      border-bottom:1px solid rgba(0,0,0,0.06);
+    }
+    .modal-title{ font-family:Cinzel, serif; font-size:18px; margin:0 }
+    .close{
+      width:34px; height:34px; border-radius:50%; border:1px solid rgba(0,0,0,0.14);
+      background:#fff; cursor:pointer; display:grid; place-items:center; font-weight:700;
+    }
+    .modal-body{ padding:14px }
+    .centered{ display:grid; place-items:center }
+    .map-frame{
+      width:100%; height:420px; border:0; border-radius:8px; box-shadow:0 8px 24px var(--soft-shadow);
     }
 
-    /* Aviso celeste parpadeando (por ejemplo, “Vence hoy” adaptado a “Confirmá tu asistencia”) */
-    .badge-celeste{
-      display: inline-block;
-      background: var(--celeste);
-      color: #073b55;
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 999px;
-      box-shadow: 0 6px 16px rgba(43,181,255,0.35);
-      animation: blink 1.4s infinite;
-      margin-left: 8px;
+    /* Donación */
+    .alias{
+      font-family:Cinzel, serif; font-size:22px; color:var(--gold); margin:8px 0;
+    }
+    .note{
+      background:#fffaf0; border:1px dashed var(--gold); border-radius:10px; padding:10px 12px; color:#6a5b2e;
     }
 
-    /* Mensaje inicial para habilitar audio si el navegador lo bloquea */
+    /* Aviso para habilitar audio si el navegador lo bloquea */
     .audio-nudge{
-      position: fixed; inset: 0; display: none; place-items: center; z-index: 100;
-      background: rgba(0,0,0,0.5); backdrop-filter: blur(4px);
+      position:fixed; inset:0; display:none; place-items:center; z-index:100;
+      background:rgba(0,0,0,0.5); backdrop-filter:blur(4px);
     }
     .audio-nudge .panel{
-      background: #fff; border-radius: 14px; padding: 16px 18px;
-      width: min(440px, 92vw); text-align: center;
-      box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+      background:#fff; border-radius:14px; padding:16px 18px; width:min(440px, 92vw); text-align:center;
+      box-shadow:0 18px 40px rgba(0,0,0,0.35);
     }
-    .audio-nudge .panel h3{
-      font-family: Cinzel, serif; margin: 6px 0 10px;
-    }
+    .audio-nudge .panel h3{ font-family:Cinzel, serif; margin:6px 0 10px }
   </style>
 </head>
 <body>
   <div class="bg"></div>
   <div class="bg-overlay"></div>
 
-  <!-- Mensaje para habilitar audio (se intentará autoplay; si el navegador bloquea, mostramos este aviso) -->
+  <!-- Nudge de audio -->
   <div id="audioNudge" class="audio-nudge">
     <div class="panel">
-      <h3>Activa la música</h3>
-      <p>Tu navegador puede bloquear la reproducción automática. Tocá “Reproducir” para escuchar la canción.</p>
-      <div style="margin-top: 12px">
-        <button id="nudgePlay" class="btn btn-gold">Reproducir</button>
+      <h3>Recibir invitación</h3>
+      <p>Tu navegador puede bloquear la reproducción automática. Tocá “Recibir invitación” para activar la música.</p>
+      <div style="margin-top:12px">
+        <button id="nudgePlay" class="btn btn-gold">Recibir invitación</button>
         <button id="nudgeClose" class="btn btn-ghost">Continuar sin sonido</button>
       </div>
     </div>
   </div>
 
-  <!-- Panel música (YouTube) -->
+  <!-- Panel música (abajo) -->
   <aside class="music-panel">
     <div class="music-card">
       <div style="display:flex;align-items:center;gap:10px;">
         <div class="ring" aria-hidden="true"></div>
         <div>
-          <div style="font-weight:700;">Música de fondo</div>
-          <div style="font-size:13px;opacity:0.9;">Reproducir/Pausar a gusto</div>
+          <div style="font-weight:800;">Música de fondo</div>
+          <div style="font-size:13px;opacity:0.8;">Controlá la invitación sonora</div>
         </div>
       </div>
       <div class="music-actions">
-        <button id="playBtn" class="btn btn-gold">Reproducir</button>
+        <!-- Cambio solicitado: “Recibir invitación” -->
+        <button id="playBtn" class="btn btn-gold">Recibir invitación</button>
         <button id="pauseBtn" class="btn btn-ghost">Parar la canción</button>
       </div>
     </div>
-    <!-- Iframe YouTube oculto visualmente, controlado por la API -->
+    <!-- Iframe YouTube oculto, controlado por API -->
     <div style="width:0;height:0;overflow:hidden;">
       <div id="player"></div>
     </div>
@@ -475,8 +389,9 @@
       <h2>Te invitamos a nuestra boda</h2>
       <p class="lead">
         Con mucha alegría queremos compartir este día especial con vos. Tu presencia hace que todo sea más lindo.
-        Prepará tus mejores deseos, tu sonrisa y ¡ganas de celebrar! <span class="celeste">Confirmá tu asistencia</span>
-        para ayudarnos con la organización <span class="badge-celeste">Recordatorio</span>.
+        Prepará tus mejores deseos, tu sonrisa y ¡ganas de celebrar!
+        <span class="cta">Confirmá tu asistencia</span>
+        <span class="badge-celeste">Recordatorio</span>
       </p>
 
       <div class="details">
@@ -492,9 +407,9 @@
         <div class="detail">
           <h3>Vestimenta</h3>
           <p><strong>Formal:</strong> Elegante y cómodo.</p>
-          <p><strong>Ellas:</strong> Vestido largo o midi en tonos neutros, joyería discreta.</p>
-          <p><strong>Ellos:</strong> Traje oscuro, camisa clara, corbata o moño. Zapatos de vestir.</p>
-          <p><strong>Color guide:</strong> Marfil, champagne, dorado, rosa empolvado; evitar colores demasiado vibrantes.</p>
+          <p><strong>Ellas:</strong> Vestido largo o midi en tonos neutros; joyería discreta; tacones o sandalias elegantes.</p>
+          <p><strong>Ellos:</strong> Traje oscuro, camisa clara, corbata o moño; zapatos de vestir.</p>
+          <p><strong>Colores sugeridos:</strong> Marfil, champagne, dorado, rosa empolvado. Evitar tonos fluorescentes.</p>
         </div>
         <div class="detail">
           <h3>Regalos y donaciones</h3>
@@ -506,8 +421,8 @@
       </div>
 
       <div class="actions" style="margin-top: 18px;">
-        <a class="wa" href="https://wa.me/?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Iv%C3%A1n%20y%20Brenda%20el%2019%20de%20enero%20de%202026" target="_blank" rel="noopener">
-          <!-- simple whatsapp icon -->
+        <a class="wa" href="https://wa.me/?text=Hola%2C%20confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Iv%C3%A1n%20y%20Brenda%20el%2019%2F01%2F2026" target="_blank" rel="noopener">
+          <!-- ícono simple de WhatsApp -->
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M20 3.9A9.9 9.9 0 0 0 12.1 4C7.2 4 3.2 8 3.2 12.9c0 1.6.4 3.2 1.2 4.6L3 22l4.6-1.2c1.4.8 3 .1 4.6.1 4.9 0 8.9-4 8.9-8.9 0-2.3-.9-4.6-2.5-6.1z" stroke="#fff" stroke-width="1.5"/>
             <path d="M8.6 10.6c0 3.8 3.1 6.9 6.9 6.9" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
@@ -517,33 +432,33 @@
       </div>
     </section>
 
-    <!-- Álbum de fotos con desplazamiento automático derecha -> izquierda en loop -->
+    <!-- Álbum de fotos -->
     <section class="album">
       <div class="album-header">
         <h3>Álbum de fotos</h3>
-        <small style="opacity:.7;">Preview en movimiento (muestra)</small>
+        <small style="opacity:.75;">Preview en movimiento (muestra)</small>
       </div>
       <div class="strip">
         <div class="lane" id="lane">
-          <!-- 8 fotos, se repetirán para efecto loop suave -->
-          <div class="photo"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" alt="Boda 1" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1511285560929-2b937e80d01e?q=80&w=1200&auto=format&fit=crop" alt="Boda 2" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=1200&auto=format&fit=crop" alt="Boda 3" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1520974735198-385b1325843d?q=80&w=1200&auto=format&fit=crop" alt="Boda 4" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?q=80&w=1200&auto=format&fit=crop" alt="Boda 5" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1517638851339-4aa32003c11a?q=80&w=1200&auto=format&fit=crop" alt="Boda 6" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1516690553957-477f0bea6cd0?q=80&w=1200&auto=format&fit=crop" alt="Boda 7" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1505816185401-082d1c05a6fd?q=80&w=1200&auto=format&fit=crop" alt="Boda 8" /></div>
-          <!-- duplicado para loop continuo -->
-          <div class="photo"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=1200&auto=format&fit=crop" alt="Boda 1b" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1511285560929-2b937e80d01e?q=80&w=1200&auto=format&fit=crop" alt="Boda 2b" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?q=80&w=1200&auto=format&fit=crop" alt="Boda 3b" /></div>
-          <div class="photo"><img src="https://images.unsplash.com/photo-1520974735198-385b1325843d?q=80&w=1200&auto=format&fit=crop" alt="Boda 4b" /></div>
+          <!-- Imágenes de muestra robustas -->
+          <div class="photo"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=80" alt="Boda 1" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1516690553957-477f0bea6cd0?auto=format&fit=crop&w=1400&q=80" alt="Boda 2" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1400&q=80" alt="Boda 3" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1520974735198-385b1325843d?auto=format&fit=crop&w=1400&q=80" alt="Boda 4" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1504215680853-026ed2a45def?auto=format&fit=crop&w=1400&q=80" alt="Boda 5" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1517638851339-4aa32003c11a?auto=format&fit=crop&w=1400&q=80" alt="Boda 6" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1505816185401-082d1c05a6fd?auto=format&fit=crop&w=1400&q=80" alt="Boda 7" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1511285560929-2b937e80d01e?auto=format&fit=crop&w=1400&q=80" alt="Boda 8" /></div>
+          <!-- duplicado para loop -->
+          <div class="photo"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1400&q=80" alt="Boda 1b" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1516690553957-477f0bea6cd0?auto=format&fit=crop&w=1400&q=80" alt="Boda 2b" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1481833761820-0509d3217039?auto=format&fit=crop&w=1400&q=80" alt="Boda 3b" /></div>
+          <div class="photo"><img src="https://images.unsplash.com/photo-1520974735198-385b1325843d?auto=format&fit=crop&w=1400&q=80" alt="Boda 4b" /></div>
         </div>
       </div>
     </section>
 
-    <!-- Acciones extra -->
+    <!-- Extra info -->
     <section class="card">
       <h2>Información útil</h2>
       <p class="lead">Llegá con tiempo, disfrutá la música, sacate fotos, y preparate para una noche inolvidable. Si necesitás ayuda, escribinos por WhatsApp.</p>
@@ -554,12 +469,12 @@
     </section>
   </main>
 
-  <!-- Footer con animación suave -->
+  <!-- Footer -->
   <footer>
     Hecho con cariño para <strong>Iván</strong> y <strong>Brenda</strong> <span class="ring" aria-hidden="true"></span> Nos vemos el 19/01/2026
   </footer>
 
-  <!-- Íconos flotantes permanentes -->
+  <!-- Íconos flotantes -->
   <div class="float-icons" aria-hidden="true">
     <div class="dot"></div><div class="dot"></div><div class="dot"></div>
   </div>
@@ -573,7 +488,7 @@
         <button class="close" id="closeMap" aria-label="Cerrar">×</button>
       </div>
       <div class="modal-body centered">
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13602.286538585064!2d-68.51147105!3d-31.535923200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1762706946200!5m2!1ses-419!2sar" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13602.286538585064!2d-68.51147105!3d-31.535923200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1762706946200!5m2!1ses-419!2sar" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </div>
@@ -599,13 +514,11 @@
   <script>
     // Estado del reproductor
     let ytPlayer;
-    let audioReady = false;
-    let intendedPlay = true; // Intentamos reproducir automáticamente al cargar
 
     // Crea el reproductor YouTube con la canción indicada
     function onYouTubeIframeAPIReady(){
       ytPlayer = new YT.Player('player', {
-        videoId: 'pJ7a7LCROOw', // ID del video de YouTube
+        videoId: 'pJ7a7LCROOw', // ID del video
         playerVars: {
           autoplay: 1,
           controls: 0,
@@ -616,41 +529,32 @@
           rel: 0
         },
         events: {
-          'onReady': onPlayerReady,
-          'onStateChange': onStateChange
+          'onReady': onPlayerReady
         }
       });
     }
 
     function onPlayerReady(){
-      audioReady = true;
-      // Intento de autoplay (algunos navegadores lo bloquean si no hay interacción del usuario)
+      // Intento autoplay (algunos navegadores lo bloquean)
       try {
         ytPlayer.playVideo();
-        // Intento de asegurar sonido (si queda muteado, el nudge ofrece habilitar)
         ytPlayer.unMute && ytPlayer.unMute();
       } catch(e){
-        // Si falla, mostramos el nudge
         showAudioNudge();
       }
-
-      // Si el navegador bloqueó, verificamos estado y ofrecemos nudge
+      // Verifica estado luego de un instante; si no reproduce, muestra nudge
       setTimeout(() => {
         const state = ytPlayer.getPlayerState();
-        // 1: playing, 2: paused, 0: ended, 3: buffering, 5: cued
+        // 1: playing
         if(state !== 1){
           showAudioNudge();
         }
       }, 600);
     }
 
-    function onStateChange(e){
-      // Si el usuario presiona "Parar", no reintentar
-    }
-
     // Controles UI
-    const playBtn = document.getElementById('playBtn');
-    const pauseBtn = document.getElementById('pauseBtn');
+    const playBtn = document.getElementById('playBtn');   // “Recibir invitación”
+    const pauseBtn = document.getElementById('pauseBtn'); // “Parar la canción”
 
     playBtn.addEventListener('click', () => {
       if(ytPlayer){
@@ -661,9 +565,7 @@
     });
 
     pauseBtn.addEventListener('click', () => {
-      if(ytPlayer){
-        ytPlayer.pauseVideo();
-      }
+      if(ytPlayer){ ytPlayer.pauseVideo(); }
     });
 
     // Audio nudge
@@ -671,12 +573,9 @@
     const nudgePlay = document.getElementById('nudgePlay');
     const nudgeClose = document.getElementById('nudgeClose');
 
-    function showAudioNudge(){
-      audioNudge.style.display = 'grid';
-    }
-    function hideAudioNudge(){
-      audioNudge.style.display = 'none';
-    }
+    function showAudioNudge(){ audioNudge.style.display = 'grid'; }
+    function hideAudioNudge(){ audioNudge.style.display = 'none'; }
+
     nudgePlay.addEventListener('click', () => {
       if(ytPlayer){
         ytPlayer.playVideo();
@@ -719,7 +618,7 @@
     closeDonate.addEventListener('click', () => hideModal(donModal, donBackdrop));
     donBackdrop.addEventListener('click', () => hideModal(donModal, donBackdrop));
 
-    // Álbum: duplicación de elementos para loop suave si hace falta (seguridad)
+    // Álbum: asegurar loop largo para pantallas grandes
     (function ensureLongLane(){
       const lane = document.getElementById('lane');
       const items = [...lane.children];
@@ -730,7 +629,11 @@
         items.forEach(it => lane.appendChild(it.cloneNode(true)));
       }
     })();
+
+    // Ajustes responsive adicionales para tocar el panel de música si el teclado móvil cubre parte
+    window.addEventListener('resize', () => {
+      // Podrías agregar lógica de reposicionamiento si detectás safe areas en iOS.
+    });
   </script>
 </body>
 </html>
-
