@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -9,6 +10,8 @@
   <!-- Tipografías -->
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
+  <!-- Leaflet (mapa rápido, navegable, sin iniciar sesión) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tG0uZmfC7U6Bq1Hq+PpI=" crossorigin="anonymous">
   <style>
     :root{
       /* Paleta profesional de boda */
@@ -31,18 +34,31 @@
       overflow-x:hidden;
     }
 
-    /* Fondo difuminado */
+    /* Fondo de casamiento mejorado: blur + viñeta + sombras y velo dorado suave */
     .bg{
       position:fixed; inset:0;
       background:
-        radial-gradient(ellipse at center, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0.58) 100%),
-        url('https://images.unsplash.com/photo-1520974735198-385b1325843d?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
-      filter:blur(3px) brightness(0.9);
+        /* Vignette radial */
+        radial-gradient(ellipse at center, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.55) 100%),
+        /* Imagen de bodas de alta calidad */
+        url('https://images.unsplash.com/photo-1520974735198-385b1325843d?auto=format&fit=crop&w=2400&q=90') center/cover no-repeat;
+      filter:blur(4px) brightness(0.95) contrast(1.02) saturate(1.06);
+      z-index:-3;
+    }
+    /* Velo superior con degradado y “sombras” sutiles para separar contenido */
+    .bg::after{
+      content:""; position:absolute; inset:0;
+      background:
+        linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.55)),
+        radial-gradient(1200px 500px at 15% 5%, rgba(0,0,0,0.22), transparent 60%),
+        radial-gradient(900px 400px at 85% 100%, rgba(0,0,0,0.25), transparent 60%),
+        linear-gradient(120deg, rgba(200,169,97,0.06), rgba(255,255,255,0.0), rgba(200,169,97,0.08));
       z-index:-2;
     }
+    /* Capa extra para asegurarnos de un contraste impecable en textos */
     .bg-overlay{
       position:fixed; inset:0;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.35), rgba(0,0,0,0.55));
+      background:linear-gradient(to bottom, rgba(0,0,0,0.22), rgba(0,0,0,0.45));
       z-index:-1;
     }
 
@@ -285,21 +301,34 @@
     }
     .music-actions{ display:flex; gap:8px; margin-top:8px; flex-wrap:wrap }
 
-    /* Modales */
+    /* Modales con animación al abrir/cerrar */
     .modal-backdrop{
-      position:fixed; inset:0; background:rgba(0,0,0,0.55);
-      backdrop-filter:blur(4px); display:none; z-index:50;
+      position:fixed; inset:0; background:rgba(0,0,0,0.0);
+      backdrop-filter:blur(0px); display:none; z-index:50;
+      opacity:0;
     }
     .modal{
       position:fixed; inset:0; display:none; place-items:center; z-index:60;
     }
     .modal-panel{
       width:min(720px, 92vw); background:#fff; border-radius:16px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.35); border:1px solid rgba(0,0,0,0.08);
-      overflow:hidden; transform:translateY(16px); opacity:0; scale:0.98;
-      transition:opacity .18s ease, transform .18s ease, scale .18s ease;
+      box-shadow:0 24px 70px rgba(0,0,0,0.45); border:1px solid rgba(0,0,0,0.08);
+      overflow:hidden; transform:translateY(14px) scale(0.98); opacity:0;
     }
-    .modal.show .modal-panel{ transform:translateY(0); opacity:1; scale:1 }
+    /* Animaciones */
+    @keyframes backdrop-fade {
+      0% { opacity:0; backdrop-filter:blur(0px); background:rgba(0,0,0,0.0); }
+      100% { opacity:1; backdrop-filter:blur(4px); background:rgba(0,0,0,0.55); }
+    }
+    @keyframes pop-in {
+      0% { transform:translateY(16px) scale(0.96); opacity:0; }
+      60% { transform:translateY(0) scale(1.02); opacity:1; }
+      100% { transform:translateY(0) scale(1.0); opacity:1; }
+    }
+    @keyframes pop-out {
+      0% { transform:translateY(0) scale(1.0); opacity:1; }
+      100% { transform:translateY(12px) scale(0.98); opacity:0; }
+    }
     .modal-head{
       display:flex; align-items:center; justify-content:space-between;
       padding:12px 14px; background:linear-gradient(90deg, var(--champagne), #fff);
@@ -312,8 +341,12 @@
     }
     .modal-body{ padding:14px }
     .centered{ display:grid; place-items:center }
+
+    /* Mapa Leaflet */
     .map-frame{
-      width:100%; height:420px; border:0; border-radius:8px; box-shadow:0 8px 24px var(--soft-shadow);
+      width:100%; height:480px; border:0; border-radius:12px;
+      box-shadow:0 14px 32px var(--soft-shadow);
+      overflow:hidden;
     }
 
     /* Donación */
@@ -479,7 +512,7 @@
     <div class="dot"></div><div class="dot"></div><div class="dot"></div>
   </div>
 
-  <!-- Modal Ubicación -->
+  <!-- Modal Ubicación (Leaflet) -->
   <div id="mapBackdrop" class="modal-backdrop"></div>
   <div id="mapModal" class="modal" aria-hidden="true" role="dialog" aria-label="Mapa de la boda">
     <div class="modal-panel">
@@ -488,7 +521,8 @@
         <button class="close" id="closeMap" aria-label="Cerrar">×</button>
       </div>
       <div class="modal-body centered">
-        <iframe class="map-frame" src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d13602.286538585064!2d-68.51147105!3d-31.535923200000003!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2sar!4v1762706946200!5m2!1ses-419!2sar" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Mapa navegable y rápido sin login -->
+        <div id="leafletMap" class="map-frame"></div>
       </div>
     </div>
   </div>
@@ -511,6 +545,8 @@
 
   <!-- YouTube Iframe API -->
   <script src="https://www.youtube.com/iframe_api"></script>
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z1Fs4qguF22SpQGT2IoE=" crossorigin="anonymous"></script>
   <script>
     // Estado del reproductor
     let ytPlayer;
@@ -585,38 +621,85 @@
     });
     nudgeClose.addEventListener('click', () => hideAudioNudge());
 
-    // Modales: Mapa
+    // Modales con animación
     const mapModal = document.getElementById('mapModal');
     const mapBackdrop = document.getElementById('mapBackdrop');
     const openMap = document.getElementById('openMap');
     const openMap2 = document.getElementById('openMap2');
     const closeMap = document.getElementById('closeMap');
 
-    function showModal(modal, backdrop){
-      modal.classList.add('show');
-      modal.style.display = 'grid';
-      backdrop.style.display = 'block';
-    }
-    function hideModal(modal, backdrop){
-      modal.classList.remove('show');
-      modal.style.display = 'none';
-      backdrop.style.display = 'none';
-    }
-
-    openMap.addEventListener('click', () => showModal(mapModal, mapBackdrop));
-    openMap2.addEventListener('click', () => showModal(mapModal, mapBackdrop));
-    closeMap.addEventListener('click', () => hideModal(mapModal, mapBackdrop));
-    mapBackdrop.addEventListener('click', () => hideModal(mapModal, mapBackdrop));
-
-    // Modal: Donación
     const donModal = document.getElementById('donModal');
     const donBackdrop = document.getElementById('donBackdrop');
     const openDonate = document.getElementById('openDonate');
     const closeDonate = document.getElementById('closeDonate');
 
+    function showModal(modal, backdrop){
+      modal.style.display = 'grid';
+      backdrop.style.display = 'block';
+      // inicia animaciones
+      backdrop.style.animation = 'backdrop-fade .18s ease forwards';
+      const panel = modal.querySelector('.modal-panel');
+      panel.style.animation = 'pop-in .22s cubic-bezier(.2,.85,.25,1) forwards';
+    }
+    function hideModal(modal, backdrop){
+      const panel = modal.querySelector('.modal-panel');
+      // animación de salida
+      panel.style.animation = 'pop-out .16s ease forwards';
+      backdrop.style.animation = 'none';
+      backdrop.style.opacity = '0';
+      // espera la salida para ocultar
+      setTimeout(() => {
+        modal.style.display = 'none';
+        backdrop.style.display = 'none';
+      }, 160);
+    }
+
+    openMap.addEventListener('click', () => {
+      showModal(mapModal, mapBackdrop);
+      ensureLeafletReady();
+    });
+    openMap2.addEventListener('click', () => {
+      showModal(mapModal, mapBackdrop);
+      ensureLeafletReady();
+    });
+    closeMap.addEventListener('click', () => hideModal(mapModal, mapBackdrop));
+    mapBackdrop.addEventListener('click', () => hideModal(mapModal, mapBackdrop));
+
     openDonate.addEventListener('click', () => showModal(donModal, donBackdrop));
     closeDonate.addEventListener('click', () => hideModal(donModal, donBackdrop));
     donBackdrop.addEventListener('click', () => hideModal(donModal, donBackdrop));
+
+    // Leaflet: mapa rápido y navegable sin login
+    let leafletMap;
+    let hasLeafletInit = false;
+    function ensureLeafletReady(){
+      if(!hasLeafletInit){
+        // Coordenadas de San Juan, Argentina
+        const sj = { lat: -31.5359, lng: -68.5115 };
+        leafletMap = L.map('leafletMap', {
+          zoomControl: true,
+          attributionControl: false
+        }).setView([sj.lat, sj.lng], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          maxZoom: 19
+        }).addTo(leafletMap);
+
+        L.marker([sj.lat, sj.lng])
+          .addTo(leafletMap)
+          .bindPopup('Boda — San Juan, Argentina')
+          .openPopup();
+
+        hasLeafletInit = true;
+        // Asegurar tamaño correcto al mostrarse el modal
+        setTimeout(() => {
+          leafletMap.invalidateSize();
+        }, 250);
+      } else {
+        // Si ya está inicializado, revalida tamaño por si el modal estaba oculto
+        setTimeout(() => leafletMap && leafletMap.invalidateSize(), 200);
+      }
+    }
 
     // Álbum: asegurar loop largo para pantallas grandes
     (function ensureLongLane(){
@@ -637,3 +720,4 @@
   </script>
 </body>
 </html>
+```
